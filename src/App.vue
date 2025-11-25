@@ -9,11 +9,11 @@
   </div> -->
 
   <!-- Navbar -->
-  <nav-bar></nav-bar>
+  <nav-bar v-if="auth"></nav-bar>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <side-bar></side-bar>
+  <side-bar v-if="auth"></side-bar>
   <!-- Main Sidebar End  -->
 
   <!-- Content Wrapper. Contains page content -->
@@ -42,9 +42,12 @@
   import SideBar from './components/SideBar.vue'
   export default {
     components: {
-      NavBar,SideBar
-
-    }
+      NavBar,SideBar},
+       data() {
+          return {
+            auth:false
+          };
+     },
   }
 </script>
 
