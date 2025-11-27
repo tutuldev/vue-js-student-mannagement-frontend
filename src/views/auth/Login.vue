@@ -9,9 +9,9 @@
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="../../index3.html" method="post">
+      <form @submit.prevent="adminLogin">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" class="form-control" v-model="form.email" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" v-model="form.password" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -69,10 +69,41 @@
 </template>
 
 <script>
+// import axios from 'axios';
 export default {
      name: "LoginPage",
-    
+     data() {
+          return {
+               form: {
+                    email: "",
+                    password: ""
+               }
+          }
+        },
+methods: {
+    adminLogin() {
+       
+        this.$store.dispatch('LOGIN', this.form)
+          .then((res) => {      
+                console.log(res.data); 
+                this.$router.push({ name: 'Home' });     
+            })
+            .catch((err) => {
+             console.error(err.response.data);
+            });
+
+      // without vuex 
+        // axios.post('http://127.0.0.1:8000/api/v1/login', this.form)
+            // .then((res) => {      
+            //     console.log(res.data);      
+            // })
+            // .catch((err) => {
+            //  console.error(err.response.data);
+            // });
+        // without vuex end 
+    }
 }
+};
 </script>
 
 <style>

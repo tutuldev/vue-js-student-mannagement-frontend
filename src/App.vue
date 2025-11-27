@@ -9,11 +9,11 @@
   </div> -->
 
   <!-- Navbar -->
-  <nav-bar v-if="auth"></nav-bar>
+  <nav-bar v-if="loggedInStatus"></nav-bar>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <side-bar v-if="auth"></side-bar>
+  <side-bar v-if="loggedInStatus"></side-bar>
   <!-- Main Sidebar End  -->
 
   <!-- Content Wrapper. Contains page content -->
@@ -43,10 +43,12 @@
   export default {
     components: {
       NavBar,SideBar},
-       data() {
-          return {
-            auth:false
-          };
+    
+
+     computed: {
+       loggedInStatus() {
+        return this.$store.getters.GET_AUTH_STATUS;
+       }
      },
   }
 </script>
