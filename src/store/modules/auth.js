@@ -42,6 +42,22 @@ export const auth={
             //  console.error(err.response.data);
             });
     })
+  },
+
+    LOGOUT(context){
+      axios.defaults.headers.common['Authorization'] = 'Bearer '+ context.state.auth_token;
+     return new Promise((resolve, reject) => {
+            axios.post('/logout')
+         .then((res) => {      
+                // console.log(res.data)
+                context.commit('SET_AUTH_LOGOUT');
+                resolve(res);      
+            })
+            .catch((err) => {
+                reject(err);
+            //  console.error(err.response.data);
+            });
+    })
        
   },
 },
@@ -56,6 +72,18 @@ export const auth={
         state.auth_info.email = info.email;
         state.auth_info.phone = info.phone;
         state.auth_info.image = info.image;
+    },
+    SET_AUTH_LOGOUT(state){
+        state.auth_token = null;
+        state.auth_status = false;
+
+        state.auth_info={
+        name: '',
+        email: '',
+        phone: null,
+        image: null,
+
+        }
     }
   },
 }
