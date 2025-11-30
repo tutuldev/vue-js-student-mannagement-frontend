@@ -43,6 +43,22 @@ export const auth={
             });
     })
   },
+    REGISTRATION(context, regData){
+         return new Promise((resolve, reject) => {
+            axios.post('/register',regData)
+         .then((res) => {      
+                // console.log(res.data)
+                context.commit('SET_AUTH_TOKEN', res.data.access_token);
+                context.commit('SET_AUTH_INFO', res.data.user);
+                resolve(res);      
+            })
+            .catch((err) => {
+                reject(err);
+            //  console.error(err.response.data);
+            });
+    })
+   
+},
 
     LOGOUT(context){
       axios.defaults.headers.common['Authorization'] = 'Bearer '+ context.state.auth_token;

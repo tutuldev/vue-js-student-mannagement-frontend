@@ -9,41 +9,49 @@
     <div class="card-body">
       <p class="login-box-msg">Register in to start your session</p>
 
-      <form action="../../index3.html" method="post">
+      <form @submit.prevent="adminRegister">
+            <!-- <span class="text-danger" v-if="errors && errors.name && errors.name.length > 0">{{ errors.name[0] }}</span> -->
+            <span class="text-danger" v-if="errors.name">{{ errors.name[0] }}</span>
+
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Name">
+          <input type="text" class="form-control" v-model="form.name" placeholder="Name">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
         </div>
+
+          <span class="text-danger" v-if="errors.phone">{{ errors.phone[0]  }}</span>
         <div class="input-group mb-3">
-          <input type="number" class="form-control" placeholder="Phone">
+          <input type="number" class="form-control" v-model="form.phone" placeholder="Phone">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
         </div>
+          <span class="text-danger" v-if="errors.email">{{ errors.email[0]  }}</span>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" class="form-control" v-model="form.email" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
         </div>
+          <span class="text-danger" v-if="errors.password">{{ errors.password[0]  }}</span>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" v-model="form.password" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
+          <!-- <span class="text-danger" v-if="errors.password_confirmation">{{ errors.password_confirmation[0]  }}</span> -->
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Re-Type Password">
+          <input type="password" class="form-control" v-model="form.password_confirmation" placeholder="Re-Type Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -61,7 +69,7 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
           </div>
           <!-- /.col -->
         </div>
@@ -95,6 +103,32 @@
 <script>
 export default {
      name: "RegisterPage",
+       data() {
+    return {
+      form: {
+        name: "",
+        email: "",
+        phone: "",
+        password: "",
+        password_confirmation: "",
+      },
+      errors: {},
+    };
+  },
+     methods:{
+       adminRegister() {
+      this.$store
+        .dispatch("REGISTRATION", this.form)
+        .then((res) => {
+          console.log(res.data);
+          this.$router.push({ name: "Home" });
+        })
+        .catch((err) => {
+          console.error(err.response.data);
+          this.errors = err.response.data.errors;
+        });
+    },
+     }
     
 }
 </script>
