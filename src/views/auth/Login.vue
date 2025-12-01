@@ -79,7 +79,7 @@
           <!-- /.social-auth-links -->
 
           <p class="mb-1">
-            <a href="forgot-password.html">I forgot my password</a>
+            <router-link  :to="{name: 'Forgot'}">I forgot my password</router-link>
           </p>
           <p class="mb-0">
             <!-- <a href="register.html" class="text-center">Register a new membership</a> -->
