@@ -14,30 +14,25 @@
           <form @submit.prevent="adminForgotPassword">
             <!-- {{ JSON.stringify(errors) }} -->
             <!-- {{ errors }} -->
-            <div v-if="msg">
-              <div
-                class="alert alert-success alert-dismissible fade show"
-                role="alert"
-              >
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="alert"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                  <span class="sr-only">Close</span>
-                </button>
-                <strong>{{msg.message }} </strong>
-              </div>
-            </div>
-
-            <span
-              class="text-danger"
-              v-if="errors.email && errors.email.length"
+          <div v-if="msg">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              @click="msg = null"
             >
-              {{ errors.email[0] }}
-            </span>
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{{ msg.message }}</strong>
+          </div>
+        </div>
+
+
+          <span class="text-danger" v-if="errors.email">
+             {{ errors.email[0] }}
+          </span>
+
             <div class="input-group mb-3">
               <input
                 type="email"
@@ -114,6 +109,8 @@ export default {
           console.log(res.data);
           this.msg=res.data;
           this.form.email='';
+            // Reset errors when success
+           this.errors = {};
           //   this.$router.push({ name: "Home" });
         })
         .catch((err) => {
