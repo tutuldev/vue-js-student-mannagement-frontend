@@ -73,7 +73,17 @@ export const auth={
     })
   },
 
-
+  RESET(context, payload){
+     return new Promise((resolve, reject) => {
+            axios.post('/reset',payload)
+         .then((res) => {      
+                resolve(res);      
+            })
+            .catch((err) => {
+                reject(err);
+            });
+    })
+  },
 
     LOGOUT(context){
       axios.defaults.headers.common['Authorization'] = 'Bearer '+ context.state.auth_token;

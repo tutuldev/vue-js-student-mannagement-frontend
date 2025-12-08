@@ -3,6 +3,7 @@ import store from '../store'
 import Login from '../views/auth/Login.vue'
 import Register from '../views/auth/Register.vue'
 import Forgot from '../views/auth/password/Forgot.vue'
+import Reset from '../views/auth/password/Reset.vue'
 import Home from '../views/pages/Home.vue'
 
 const routes = [
@@ -22,6 +23,12 @@ const routes = [
     path: '/forgot-password',
     name: 'Forgot',
     component: Forgot,
+    meta: { guest: true }
+  },
+  {
+    path: '/reset-password',
+    name: 'Reset',
+    component: Reset,
     meta: { guest: true }
   },
   {
